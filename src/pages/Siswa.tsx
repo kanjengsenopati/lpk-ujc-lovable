@@ -7,7 +7,7 @@ import { SiswaSearch } from "@/components/siswa/SiswaSearch";
 import { SiswaViewToggle } from "@/components/siswa/SiswaViewToggle";
 import { SiswaTableView } from "@/components/siswa/SiswaTableView";
 import { SiswaGridView } from "@/components/siswa/SiswaGridView";
-import { Siswa } from "@/components/siswa/types";
+import type { Siswa } from "@/components/siswa/types";
 
 const dummyData: Siswa[] = [
   {
