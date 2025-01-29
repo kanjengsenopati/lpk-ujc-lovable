@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/components/ui/use-toast";
-import { SiswaSearch } from "@/components/siswa/SiswaSearch";
-import { SiswaViewToggle } from "@/components/siswa/SiswaViewToggle";
-import { SiswaTableView } from "@/components/siswa/SiswaTableView";
-import { SiswaGridView } from "@/components/siswa/SiswaGridView";
 import type { Siswa } from "@/components/siswa/types";
+import { SiswaHeader } from "@/components/siswa/SiswaHeader";
+import { SiswaActions } from "@/components/siswa/SiswaActions";
+import { SiswaContent } from "@/components/siswa/SiswaContent";
 
 const dummyData: Siswa[] = [
   {
@@ -64,47 +61,31 @@ export default function Siswa() {
     });
   };
 
+  const handleAddClick = () => {
+    toast({
+      title: "Tambah Siswa",
+      description: "Membuka form tambah data siswa",
+    });
+  };
+
   return (
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
       <main className="flex-1 p-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Data Siswa</h1>
-          <p className="text-muted-foreground">
-            Kelola data siswa yang terdaftar dalam sistem
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center w-full sm:w-auto">
-            <SiswaSearch
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-            />
-            <SiswaViewToggle
-              viewMode={viewMode}
-              onViewChange={setViewMode}
-            />
-          </div>
-          <Button className="w-full sm:w-auto">
-            <Plus className="w-4 h-4 mr-2" />
-            Tambah Siswa
-          </Button>
-        </div>
-
-        {viewMode === "table" ? (
-          <SiswaTableView
-            data={filteredData}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        ) : (
-          <SiswaGridView
-            data={filteredData}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        )}
+        <SiswaHeader onAddClick={handleAddClick} />
+        <SiswaActions
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          viewMode={viewMode}
+          onViewChange={setViewMode}
+          onAddClick={handleAddClick}
+        />
+        <SiswaContent
+          data={filteredData}
+          viewMode={viewMode}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </main>
     </div>
   );
