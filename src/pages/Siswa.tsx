@@ -1,34 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Grid, List, Pencil, Plus, Trash, Search } from "lucide-react";
+import { Plus } from "lucide-react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/components/ui/use-toast";
-
-interface Siswa {
-  id: string;
-  idSiswa: string;
-  nama: string;
-  email: string;
-  noHp: string;
-  asalLpk: string;
-  tanggalMasuk: string;
-}
+import { SiswaSearch } from "@/components/siswa/SiswaSearch";
+import { SiswaViewToggle } from "@/components/siswa/SiswaViewToggle";
+import { SiswaTableView } from "@/components/siswa/SiswaTableView";
+import { SiswaGridView } from "@/components/siswa/SiswaGridView";
+import { Siswa } from "@/components/siswa/types";
 
 const dummyData: Siswa[] = [
   {
@@ -98,38 +77,14 @@ export default function Siswa() {
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center w-full sm:w-auto">
-            <div className="relative w-full sm:w-[300px]">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Cari siswa..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-                aria-label="Cari siswa"
-              />
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setViewMode("table")}
-                className={viewMode === "table" ? "bg-accent" : ""}
-                aria-label="Tampilan tabel"
-                aria-pressed={viewMode === "table"}
-              >
-                <List className="w-4 h-4 mr-2" />
-                Tabel
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setViewMode("grid")}
-                className={viewMode === "grid" ? "bg-accent" : ""}
-                aria-label="Tampilan grid"
-                aria-pressed={viewMode === "grid"}
-              >
-                <Grid className="w-4 h-4 mr-2" />
-                Grid
-              </Button>
-            </div>
+            <SiswaSearch
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
+            <SiswaViewToggle
+              viewMode={viewMode}
+              onViewChange={setViewMode}
+            />
           </div>
           <Button className="w-full sm:w-auto">
             <Plus className="w-4 h-4 mr-2" />
@@ -138,108 +93,17 @@ export default function Siswa() {
         </div>
 
         {viewMode === "table" ? (
-          <div className="rounded-lg border bg-card overflow-hidden">
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[50px]">No</TableHead>
-                    <TableHead>ID Siswa</TableHead>
-                    <TableHead>Nama</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>No HP</TableHead>
-                    <TableHead>Asal LPK</TableHead>
-                    <TableHead>Tanggal Masuk</TableHead>
-                    <TableHead className="text-right">Aksi</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredData.map((siswa, index) => (
-                    <TableRow key={siswa.id}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell>{siswa.idSiswa}</TableCell>
-                      <TableCell>{siswa.nama}</TableCell>
-                      <TableCell>{siswa.email}</TableCell>
-                      <TableCell>{siswa.noHp}</TableCell>
-                      <TableCell>{siswa.asalLpk}</TableCell>
-                      <TableCell>{siswa.tanggalMasuk}</TableCell>
-                      <TableCell>
-                        <div className="flex justify-end gap-2">
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handleEdit(siswa.id)}
-                            aria-label={`Edit data ${siswa.nama}`}
-                          >
-                            <Pencil className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handleDelete(siswa.id)}
-                            aria-label={`Hapus data ${siswa.nama}`}
-                          >
-                            <Trash className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
+          <SiswaTableView
+            data={filteredData}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredData.map((siswa) => (
-              <Card key={siswa.id}>
-                <CardHeader>
-                  <CardTitle>{siswa.nama}</CardTitle>
-                  <CardDescription>{siswa.idSiswa}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div>
-                      <span className="font-medium">Email:</span> {siswa.email}
-                    </div>
-                    <div>
-                      <span className="font-medium">No HP:</span> {siswa.noHp}
-                    </div>
-                    <div>
-                      <span className="font-medium">Asal LPK:</span>{" "}
-                      {siswa.asalLpk}
-                    </div>
-                    <div>
-                      <span className="font-medium">Tanggal Masuk:</span>{" "}
-                      {siswa.tanggalMasuk}
-                    </div>
-                    <div className="flex gap-2 mt-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => handleEdit(siswa.id)}
-                        aria-label={`Edit data ${siswa.nama}`}
-                      >
-                        <Pencil className="w-4 h-4 mr-2" />
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => handleDelete(siswa.id)}
-                        aria-label={`Hapus data ${siswa.nama}`}
-                      >
-                        <Trash className="w-4 h-4 mr-2" />
-                        Hapus
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <SiswaGridView
+            data={filteredData}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         )}
       </main>
     </div>
