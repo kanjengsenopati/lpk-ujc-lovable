@@ -10,10 +10,14 @@ const Index = () => {
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <main className="flex-1 p-8">
-          <SidebarTrigger />
+          <div className="flex items-center justify-between mb-8">
+            <SidebarTrigger />
+          </div>
           
-          <div className="space-y-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+          <div className="space-y-8 animate-fade-in">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">
+              Dashboard
+            </h1>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatCard
