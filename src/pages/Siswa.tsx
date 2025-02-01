@@ -2,9 +2,8 @@ import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/components/ui/use-toast";
 import type { Siswa } from "@/components/siswa/types";
-import { SiswaHeader } from "@/components/siswa/SiswaHeader";
 import { SiswaActions } from "@/components/siswa/SiswaActions";
-import { SiswaContent } from "@/components/siswa/SiswaContent";
+import { SiswaTableView } from "@/components/siswa/SiswaTableView";
 
 const dummyData: Siswa[] = [
   {
@@ -79,7 +78,6 @@ const dummyData: Siswa[] = [
 ];
 
 export default function Siswa() {
-  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
 
@@ -114,17 +112,19 @@ export default function Siswa() {
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
       <main className="flex-1 p-8">
-        <SiswaHeader onAddClick={handleAddClick} />
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold tracking-tight">Data Siswa</h1>
+          <p className="text-muted-foreground">
+            Kelola data siswa dengan mudah dan efisien
+          </p>
+        </div>
         <SiswaActions
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
-          viewMode={viewMode}
-          onViewChange={setViewMode}
           onAddClick={handleAddClick}
         />
-        <SiswaContent
+        <SiswaTableView
           data={filteredData}
-          viewMode={viewMode}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
