@@ -15,6 +15,14 @@ export function SiswaContent({
   onEdit,
   onDelete,
 }: SiswaContentProps) {
+  if (data.length === 0) {
+    return (
+      <div className="text-center py-8 text-muted-foreground">
+        Tidak ada data siswa yang ditemukan
+      </div>
+    );
+  }
+
   return viewMode === "table" ? (
     <SiswaTableView data={data} onEdit={onEdit} onDelete={onDelete} />
   ) : (
