@@ -9,13 +9,12 @@ interface SiswaSearchProps {
 export function SiswaSearch({ searchTerm, onSearchChange }: SiswaSearchProps) {
   return (
     <div className="relative w-full sm:w-[300px]">
-      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
       <Input
-        placeholder="Cari siswa..."
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="pl-8"
-        aria-label="Cari siswa"
+        className="pl-9"
+        placeholder="Cari data siswa..."
       />
     </div>
   );

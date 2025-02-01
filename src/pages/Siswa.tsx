@@ -3,7 +3,8 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/components/ui/use-toast";
 import type { Siswa } from "@/components/siswa/types";
 import { SiswaActions } from "@/components/siswa/SiswaActions";
-import { SiswaTableView } from "@/components/siswa/SiswaTableView";
+import { SiswaContent } from "@/components/siswa/SiswaContent";
+import { SiswaViewToggle } from "@/components/siswa/SiswaViewToggle";
 
 const dummyData: Siswa[] = [
   {
@@ -52,33 +53,11 @@ const dummyData: Siswa[] = [
     asalLpk: "LPK Bina Skill",
     tanggalMasuk: "2024-01-20",
   },
-  {
-    id: "3",
-    idSiswa: "SW003",
-    nik: "3275014708020003",
-    nama: "Citra Dewi",
-    phone: "081234567892",
-    email: "citra.d@email.com",
-    alamat: "Jl. Thamrin No. 67, Jakarta Pusat",
-    jenisKelamin: "Wanita",
-    tempatLahir: "Surabaya",
-    tanggalLahir: "2002-11-20",
-    umur: 21,
-    agama: "Kristen",
-    golonganDarah: "O",
-    tinggiBadan: 165,
-    beratBadan: 55,
-    mataKanan: 2.0,
-    mataKiri: 1.5,
-    ukuranSepatu: 38,
-    ukuranKepala: 57,
-    asalLpk: "LPK Karya Mandiri",
-    tanggalMasuk: "2024-02-01",
-  },
 ];
 
 export default function Siswa() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const { toast } = useToast();
 
   const filteredData = dummyData.filter((siswa) =>
@@ -118,13 +97,17 @@ export default function Siswa() {
             Kelola data siswa dengan mudah dan efisien
           </p>
         </div>
-        <SiswaActions
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          onAddClick={handleAddClick}
-        />
-        <SiswaTableView
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <SiswaActions
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            onAddClick={handleAddClick}
+          />
+          <SiswaViewToggle viewMode={viewMode} onViewChange={setViewMode} />
+        </div>
+        <SiswaContent
           data={filteredData}
+          viewMode={viewMode}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
