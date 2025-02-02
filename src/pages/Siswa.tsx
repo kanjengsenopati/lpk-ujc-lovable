@@ -5,8 +5,19 @@ import type { Siswa } from "@/components/siswa/types";
 import { SiswaActions } from "@/components/siswa/SiswaActions";
 import { SiswaContent } from "@/components/siswa/SiswaContent";
 import { SiswaViewToggle } from "@/components/siswa/SiswaViewToggle";
+import { SiswaModal } from "@/components/siswa/SiswaModal";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
-const dummyData: Siswa[] = [
+const initialData: Siswa[] = [
   {
     id: "1",
     idSiswa: "SW001",
@@ -58,33 +69,79 @@ const dummyData: Siswa[] = [
 export default function Siswa() {
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
+  const [data, setData] = useState<Siswa[]>(initialData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedSiswa, setSelectedSiswa] = useState<Partial<Siswa> | null>(null);
+  const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const { toast } = useToast();
 
-  const filteredData = dummyData.filter((siswa) =>
+  const filteredData = data.filter((siswa) =>
     Object.values(siswa).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
   const handleDelete = (id: string) => {
-    toast({
-      title: "Konfirmasi Hapus",
-      description: "Data siswa berhasil dihapus",
-    });
+    const siswa = data.find((s) => s.id === id);
+    if (siswa) {
+      setSelectedSiswa(siswa);
+      setIsDeleteDialogOpen(true);
+    }
+  };
+
+  const confirmDelete = () => {
+    if (selectedSiswa?.id) {
+      setData((prev) => prev.filter((s) => s.id !== selectedSiswa.id));
+      toast({
+        title: "Berhasil",
+        description: "Data siswa berhasil dihapus",
+      });
+    }
+    setIsDeleteDialogOpen(false);
+    setSelectedSiswa(null);
   };
 
   const handleEdit = (id: string) => {
-    toast({
-      title: "Edit Siswa",
-      description: "Membuka form edit data siswa",
-    });
+    const siswa = data.find((s) => s.id === id);
+    if (siswa) {
+      setSelectedSiswa(siswa);
+      setModalMode("edit");
+      setIsModalOpen(true);
+    }
   };
 
   const handleAddClick = () => {
-    toast({
-      title: "Tambah Siswa",
-      description: "Membuka form tambah data siswa",
-    });
+    setSelectedSiswa(null);
+    setModalMode("add");
+    setIsModalOpen(true);
+  };
+
+  const handleModalSubmit = (formData: Partial<Siswa>) => {
+    if (modalMode === "add") {
+      const newSiswa: Siswa = {
+        id: String(data.length + 1),
+        idSiswa: `SW${String(data.length + 1).padStart(3, "0")}`,
+        ...formData,
+      } as Siswa;
+      setData((prev) => [...prev, newSiswa]);
+      toast({
+        title: "Berhasil",
+        description: "Data siswa berhasil ditambahkan",
+      });
+    } else {
+      setData((prev) =>
+        prev.map((s) =>
+          s.id === selectedSiswa?.id ? { ...s, ...formData } : s
+        )
+      );
+      toast({
+        title: "Berhasil",
+        description: "Data siswa berhasil diperbarui",
+      });
+    }
+    setIsModalOpen(false);
+    setSelectedSiswa(null);
   };
 
   return (
@@ -111,6 +168,32 @@ export default function Siswa() {
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
+
+        <SiswaModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleModalSubmit}
+          initialData={selectedSiswa}
+          mode={modalMode}
+        />
+
+        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Konfirmasi Hapus</AlertDialogTitle>
+              <AlertDialogDescription>
+                Apakah Anda yakin ingin menghapus data siswa {selectedSiswa?.nama}? 
+                Tindakan ini tidak dapat dibatalkan.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Batal</AlertDialogCancel>
+              <AlertDialogAction onClick={confirmDelete}>
+                Hapus
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </main>
     </div>
   );
