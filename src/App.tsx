@@ -8,6 +8,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Siswa from "./pages/Siswa";
+import Rekrutmen from "./pages/Rekrutmen";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/siswa" element={<Siswa />} />
+              <Route path="/rekrutmen" element={<Rekrutmen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
