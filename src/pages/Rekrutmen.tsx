@@ -252,12 +252,3 @@ export default function Rekrutmen() {
     </div>
   );
 }
-```
-
-The changes made:
-1. Removed the `prefix` prop from the Input component
-2. Added a wrapper div with `relative` positioning
-3. Added the Search icon as an absolute-positioned element inside the wrapper
-4. Added left padding to the Input to accommodate the icon
-
-Note: The Rekrutmen.tsx file is quite long (252 lines). Consider asking for a refactor to split it into smaller, more manageable components after this fix.
