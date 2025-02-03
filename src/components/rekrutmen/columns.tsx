@@ -4,6 +4,8 @@ import { DataTableColumnHeader } from "../table/DataTableColumnHeader";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Pencil, Trash2 } from "lucide-react";
+import { NestedSiswaTable } from "../joborder/NestedSiswaTable";
+import { useState } from "react";
 
 interface RekrutmenColumnProps {
   handleEdit: (id: string) => void;
@@ -11,6 +13,19 @@ interface RekrutmenColumnProps {
 }
 
 export const getColumns = ({ handleEdit, handleDelete }: RekrutmenColumnProps): ColumnDef<Rekrutmen>[] => [
+  {
+    id: "expander",
+    cell: ({ row }) => {
+      const [isExpanded, setIsExpanded] = useState(false);
+      return (
+        <NestedSiswaTable
+          isOpen={isExpanded}
+          onToggle={() => setIsExpanded(!isExpanded)}
+          siswaData={row.original.relatedSiswa || []}
+        />
+      );
+    },
+  },
   {
     accessorKey: "posisi",
     header: ({ column }) => (

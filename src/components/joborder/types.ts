@@ -8,6 +8,7 @@ export interface JobOrder {
   tglPelatihan: string;
   tglWawancara: string;
   createdAt: string;
+  relatedSiswa?: Siswa[];
 }
 
 export const jobTypes = [

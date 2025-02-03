@@ -11,4 +11,5 @@ export interface Rekrutmen {
   kuota: number;
   status: "Buka" | "Tutup";
   createdAt: string;
+  relatedSiswa?: Siswa[];
 }

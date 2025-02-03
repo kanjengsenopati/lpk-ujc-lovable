@@ -4,16 +4,17 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, Pencil, Trash2 } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { JobOrderModal } from "@/components/joborder/JobOrderModal";
+import { ExpandableRow } from "@/components/joborder/ExpandableRow";
 import type { JobOrder } from "@/components/joborder/types";
+import type { Siswa } from "@/components/siswa/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +26,56 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+// Sample siswa data for demonstration
+const sampleSiswa: Siswa[] = [
+  {
+    id: "1",
+    idSiswa: "SW001",
+    nik: "3275014708020001",
+    nama: "Budi Santoso",
+    phone: "081234567890",
+    email: "budi.s@email.com",
+    alamat: "Jl. Gatot Subroto No. 123, Jakarta Selatan",
+    jenisKelamin: "Pria",
+    tempatLahir: "Jakarta",
+    tanggalLahir: "2002-08-07",
+    umur: 21,
+    agama: "Islam",
+    golonganDarah: "B",
+    tinggiBadan: 170,
+    beratBadan: 65,
+    mataKanan: 1.5,
+    mataKiri: 1.5,
+    ukuranSepatu: 42,
+    ukuranKepala: 58,
+    asalLpk: "LPK Maju Jaya",
+    tanggalMasuk: "2024-01-15",
+  },
+  {
+    id: "2",
+    idSiswa: "SW002",
+    nik: "3275014708020002",
+    nama: "Ani Wijaya",
+    phone: "081234567891",
+    email: "ani.w@email.com",
+    alamat: "Jl. Sudirman No. 45, Jakarta Pusat",
+    jenisKelamin: "Wanita",
+    tempatLahir: "Bandung",
+    tanggalLahir: "2003-03-15",
+    umur: 20,
+    agama: "Islam",
+    golonganDarah: "A",
+    tinggiBadan: 160,
+    beratBadan: 50,
+    mataKanan: 1.0,
+    mataKiri: 1.0,
+    ukuranSepatu: 37,
+    ukuranKepala: 56,
+    asalLpk: "LPK Bina Skill",
+    tanggalMasuk: "2024-01-20",
+  },
+];
+
 const initialData: JobOrder[] = [
   {
     id: "1",
@@ -35,7 +86,8 @@ const initialData: JobOrder[] = [
     tglCetak: "2024-04-15",
     tglPelatihan: "2024-05-01",
     tglWawancara: "2024-04-20",
-    createdAt: "2024-03-01"
+    createdAt: "2024-03-01",
+    relatedSiswa: [sampleSiswa[0]]
   },
   {
     id: "2",
@@ -46,7 +98,8 @@ const initialData: JobOrder[] = [
     tglCetak: "2024-05-15",
     tglPelatihan: "2024-06-01",
     tglWawancara: "2024-05-20",
-    createdAt: "2024-03-15"
+    createdAt: "2024-03-15",
+    relatedSiswa: [sampleSiswa[1]]
   }
 ];
 
@@ -58,12 +111,6 @@ export default function JobOrder() {
   const [selectedJobOrder, setSelectedJobOrder] = useState<Partial<JobOrder> | null>(null);
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const { toast } = useToast();
-
-  const filteredData = data.filter((jobOrder) =>
-    Object.values(jobOrder).some((value) =>
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
 
   const handleDelete = (id: string) => {
     const jobOrder = data.find((j) => j.id === id);
@@ -127,6 +174,12 @@ export default function JobOrder() {
     setSelectedJobOrder(null);
   };
 
+  const filteredData = data.filter((jobOrder) =>
+    Object.values(jobOrder).some((value) =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
@@ -160,6 +213,7 @@ export default function JobOrder() {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead></TableHead>
                 <TableHead>Tipe Pekerjaan</TableHead>
                 <TableHead>Kumiai Agency</TableHead>
                 <TableHead>Jumlah Peserta</TableHead>
@@ -170,31 +224,12 @@ export default function JobOrder() {
             </TableHeader>
             <TableBody>
               {filteredData.map((jobOrder) => (
-                <TableRow key={jobOrder.id}>
-                  <TableCell className="font-medium">{jobOrder.jobType}</TableCell>
-                  <TableCell>{jobOrder.kumiaiAgency}</TableCell>
-                  <TableCell>{jobOrder.jmlPeserta}</TableCell>
-                  <TableCell>{jobOrder.tglRekrut}</TableCell>
-                  <TableCell>{jobOrder.tglWawancara}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleEdit(jobOrder.id)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(jobOrder.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                <ExpandableRow
+                  key={jobOrder.id}
+                  jobOrder={jobOrder}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
               ))}
             </TableBody>
           </Table>
