@@ -5,7 +5,12 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 
-export const columns: ColumnDef<Rekrutmen>[] = [
+interface RekrutmenColumnProps {
+  handleEdit: (id: string) => void;
+  handleDelete: (id: string) => void;
+}
+
+export const getColumns = ({ handleEdit, handleDelete }: RekrutmenColumnProps): ColumnDef<Rekrutmen>[] => [
   {
     accessorKey: "posisi",
     header: ({ column }) => (

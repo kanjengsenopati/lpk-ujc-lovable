@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { DataTable } from "@/components/table/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, Pencil, Trash2 } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { RekrutmenModal } from "@/components/rekrutmen/RekrutmenModal";
 import type { Rekrutmen } from "@/components/rekrutmen/types";
+import { getColumns } from "@/components/rekrutmen/columns";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +18,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Badge } from "@/components/ui/badge";
 
 const initialData: Rekrutmen[] = [
   {
@@ -75,12 +68,6 @@ export default function Rekrutmen() {
   const [selectedRekrutmen, setSelectedRekrutmen] = useState<Partial<Rekrutmen> | null>(null);
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const { toast } = useToast();
-
-  const filteredData = data.filter((rekrutmen) =>
-    Object.values(rekrutmen).some((value) =>
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
 
   const handleDelete = (id: string) => {
     const rekrutmen = data.find((r) => r.id === id);
@@ -144,6 +131,11 @@ export default function Rekrutmen() {
     setSelectedRekrutmen(null);
   };
 
+  const columns = getColumns({
+    handleEdit,
+    handleDelete,
+  });
+
   return (
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
@@ -168,60 +160,19 @@ export default function Rekrutmen() {
             </div>
           </div>
           <Button onClick={handleAddClick}>
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 mr-2" />
             Tambah Rekrutmen
           </Button>
         </div>
 
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Posisi</TableHead>
-                <TableHead>Perusahaan</TableHead>
-                <TableHead>Lokasi</TableHead>
-                <TableHead>Kuota</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Tanggal Mulai</TableHead>
-                <TableHead>Aksi</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredData.map((rekrutmen) => (
-                <TableRow key={rekrutmen.id}>
-                  <TableCell className="font-medium">{rekrutmen.posisi}</TableCell>
-                  <TableCell>{rekrutmen.perusahaan}</TableCell>
-                  <TableCell>{rekrutmen.lokasi}</TableCell>
-                  <TableCell>{rekrutmen.kuota}</TableCell>
-                  <TableCell>
-                    <Badge variant={rekrutmen.status === "Buka" ? "default" : "secondary"}>
-                      {rekrutmen.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{rekrutmen.tglMulai}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleEdit(rekrutmen.id)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(rekrutmen.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <DataTable
+          columns={columns}
+          data={data.filter((rekrutmen) =>
+            Object.values(rekrutmen).some((value) =>
+              String(value).toLowerCase().includes(searchTerm.toLowerCase())
+            )
+          )}
+        />
 
         <RekrutmenModal
           isOpen={isModalOpen}
