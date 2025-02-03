@@ -157,13 +157,15 @@ export default function Rekrutmen() {
 
         <div className="flex justify-between items-center mb-6">
           <div className="flex gap-2 items-center">
-            <Input
-              placeholder="Cari rekrutmen..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-[300px]"
-              prefix={<Search className="w-4 h-4 text-muted-foreground" />}
-            />
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Cari rekrutmen..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-[300px] pl-8"
+              />
+            </div>
           </div>
           <Button onClick={handleAddClick}>
             <Plus className="w-4 h-4" />
@@ -250,3 +252,12 @@ export default function Rekrutmen() {
     </div>
   );
 }
+```
+
+The changes made:
+1. Removed the `prefix` prop from the Input component
+2. Added a wrapper div with `relative` positioning
+3. Added the Search icon as an absolute-positioned element inside the wrapper
+4. Added left padding to the Input to accommodate the icon
+
+Note: The Rekrutmen.tsx file is quite long (252 lines). Consider asking for a refactor to split it into smaller, more manageable components after this fix.
