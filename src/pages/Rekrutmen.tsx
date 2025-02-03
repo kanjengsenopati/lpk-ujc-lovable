@@ -2,22 +2,12 @@ import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/hooks/use-toast";
 import { DataTable } from "@/components/table/DataTable";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, Search } from "lucide-react";
-import { RekrutmenModal } from "@/components/rekrutmen/RekrutmenModal";
 import type { Rekrutmen } from "@/components/rekrutmen/types";
 import { getColumns } from "@/components/rekrutmen/columns";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { RekrutmenModal } from "@/components/rekrutmen/RekrutmenModal";
+import { RekrutmenHeader } from "@/components/rekrutmen/RekrutmenHeader";
+import { RekrutmenActions } from "@/components/rekrutmen/RekrutmenActions";
+import { DeleteDialog } from "@/components/rekrutmen/DeleteDialog";
 
 const initialData: Rekrutmen[] = [
   {
@@ -140,30 +130,13 @@ export default function Rekrutmen() {
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
       <main className="flex-1 p-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Data Rekrutmen</h1>
-          <p className="text-muted-foreground">
-            Kelola data rekrutmen magang Jepang dengan mudah dan efisien
-          </p>
-        </div>
-
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex gap-2 items-center">
-            <div className="relative">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="Cari rekrutmen..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-[300px] pl-8"
-              />
-            </div>
-          </div>
-          <Button onClick={handleAddClick}>
-            <Plus className="w-4 h-4 mr-2" />
-            Tambah Rekrutmen
-          </Button>
-        </div>
+        <RekrutmenHeader />
+        
+        <RekrutmenActions
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onAddClick={handleAddClick}
+        />
 
         <DataTable
           columns={columns}
@@ -182,23 +155,12 @@ export default function Rekrutmen() {
           mode={modalMode}
         />
 
-        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Konfirmasi Hapus</AlertDialogTitle>
-              <AlertDialogDescription>
-                Apakah Anda yakin ingin menghapus data rekrutmen {selectedRekrutmen?.posisi}? 
-                Tindakan ini tidak dapat dibatalkan.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Batal</AlertDialogCancel>
-              <AlertDialogAction onClick={confirmDelete}>
-                Hapus
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <DeleteDialog
+          isOpen={isDeleteDialogOpen}
+          onOpenChange={setIsDeleteDialogOpen}
+          selectedRekrutmen={selectedRekrutmen}
+          onConfirm={confirmDelete}
+        />
       </main>
     </div>
   );
