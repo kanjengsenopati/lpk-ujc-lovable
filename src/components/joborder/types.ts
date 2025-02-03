@@ -1,3 +1,5 @@
+import type { Siswa } from "../siswa/types";
+
 export interface JobOrder {
   id: string;
   jobType: string;

@@ -1,3 +1,5 @@
+import type { Siswa } from "../siswa/types";
+
 export interface Rekrutmen {
   id: string;
   posisi: string;
