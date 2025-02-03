@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Siswa from "./pages/Siswa";
 import Rekrutmen from "./pages/Rekrutmen";
 import JobOrder from "./pages/JobOrder";
+import Mitra from "./pages/Mitra";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/siswa" element={<Siswa />} />
               <Route path="/rekrutmen" element={<Rekrutmen />} />
               <Route path="/job-order" element={<JobOrder />} />
+              <Route path="/mitra" element={<Mitra />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
