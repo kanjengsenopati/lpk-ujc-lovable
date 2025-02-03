@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Siswa from "./pages/Siswa";
 import Rekrutmen from "./pages/Rekrutmen";
+import JobOrder from "./pages/JobOrder";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/siswa" element={<Siswa />} />
               <Route path="/rekrutmen" element={<Rekrutmen />} />
+              <Route path="/job-order" element={<JobOrder />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
