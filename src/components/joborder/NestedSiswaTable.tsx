@@ -45,29 +45,23 @@ export function NestedSiswaTable({ isOpen, onToggle, siswaData }: NestedSiswaTab
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>ID Siswa</TableHead>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Alamat</TableHead>
-                      <TableHead>Jenis Kelamin</TableHead>
+                      <TableHead>Nama Siswa</TableHead>
+                      <TableHead>Asal LPK</TableHead>
+                      <TableHead>Tanggal Masuk</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {siswaData && siswaData.length > 0 ? (
                       siswaData.map((siswa) => (
                         <TableRow key={siswa.id}>
-                          <TableCell>{siswa.idSiswa}</TableCell>
                           <TableCell>{siswa.nama}</TableCell>
-                          <TableCell>{siswa.email}</TableCell>
-                          <TableCell>{siswa.phone}</TableCell>
-                          <TableCell>{siswa.alamat}</TableCell>
-                          <TableCell>{siswa.jenisKelamin}</TableCell>
+                          <TableCell>{siswa.asalLpk}</TableCell>
+                          <TableCell>{siswa.tanggalMasuk}</TableCell>
                         </TableRow>
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={6} className="text-center py-4">
+                        <TableCell colSpan={3} className="text-center py-4">
                           Tidak ada data siswa
                         </TableCell>
                       </TableRow>
