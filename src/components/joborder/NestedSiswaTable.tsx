@@ -38,32 +38,46 @@ export function NestedSiswaTable({ isOpen, onToggle, siswaData }: NestedSiswaTab
         )}
       </Button>
       {isOpen && (
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="siswa-data">
-            <AccordionContent className="pl-8 pr-4 py-4 bg-muted/50">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID Siswa</TableHead>
-                    <TableHead>Nama</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Phone</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {siswaData.map((siswa) => (
-                    <TableRow key={siswa.id}>
-                      <TableCell>{siswa.idSiswa}</TableCell>
-                      <TableCell>{siswa.nama}</TableCell>
-                      <TableCell>{siswa.email}</TableCell>
-                      <TableCell>{siswa.phone}</TableCell>
+        <div className="mt-4">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="siswa-data">
+              <AccordionContent className="pl-8 pr-4 py-4 bg-muted/50">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID Siswa</TableHead>
+                      <TableHead>Nama</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Phone</TableHead>
+                      <TableHead>Alamat</TableHead>
+                      <TableHead>Jenis Kelamin</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+                  </TableHeader>
+                  <TableBody>
+                    {siswaData && siswaData.length > 0 ? (
+                      siswaData.map((siswa) => (
+                        <TableRow key={siswa.id}>
+                          <TableCell>{siswa.idSiswa}</TableCell>
+                          <TableCell>{siswa.nama}</TableCell>
+                          <TableCell>{siswa.email}</TableCell>
+                          <TableCell>{siswa.phone}</TableCell>
+                          <TableCell>{siswa.alamat}</TableCell>
+                          <TableCell>{siswa.jenisKelamin}</TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center py-4">
+                          Tidak ada data siswa
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
       )}
     </div>
   );
