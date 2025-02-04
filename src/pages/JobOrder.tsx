@@ -1,32 +1,14 @@
 import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, Search } from "lucide-react";
 import { JobOrderModal } from "@/components/joborder/JobOrderModal";
-import { ExpandableRow } from "@/components/joborder/ExpandableRow";
+import { JobOrderHeader } from "@/components/joborder/JobOrderHeader";
+import { JobOrderActions } from "@/components/joborder/JobOrderActions";
+import { JobOrderTable } from "@/components/joborder/JobOrderTable";
+import { DeleteConfirmationDialog } from "@/components/joborder/DeleteConfirmationDialog";
 import type { JobOrder } from "@/components/joborder/types";
 import type { Siswa } from "@/components/siswa/types";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
-// Sample siswa data for demonstration
 const sampleSiswa: Siswa[] = [
   {
     id: "1",
@@ -184,56 +166,17 @@ export default function JobOrder() {
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
       <main className="flex-1 p-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Data Job Order</h1>
-          <p className="text-muted-foreground">
-            Kelola data job order magang Jepang dengan mudah dan efisien
-          </p>
-        </div>
-
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex gap-2 items-center">
-            <div className="relative">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="Cari job order..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-[300px] pl-8"
-              />
-            </div>
-          </div>
-          <Button onClick={handleAddClick}>
-            <Plus className="w-4 h-4" />
-            Tambah Job Order
-          </Button>
-        </div>
-
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead></TableHead>
-                <TableHead>Tipe Pekerjaan</TableHead>
-                <TableHead>Kumiai Agency</TableHead>
-                <TableHead>Jumlah Peserta</TableHead>
-                <TableHead>Tanggal Rekrut</TableHead>
-                <TableHead>Tanggal Wawancara</TableHead>
-                <TableHead>Aksi</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredData.map((jobOrder) => (
-                <ExpandableRow
-                  key={jobOrder.id}
-                  jobOrder={jobOrder}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <JobOrderHeader />
+        <JobOrderActions
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onAddClick={handleAddClick}
+        />
+        <JobOrderTable
+          data={filteredData}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
 
         <JobOrderModal
           isOpen={isModalOpen}
@@ -243,23 +186,11 @@ export default function JobOrder() {
           mode={modalMode}
         />
 
-        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Konfirmasi Hapus</AlertDialogTitle>
-              <AlertDialogDescription>
-                Apakah Anda yakin ingin menghapus data job order ini? 
-                Tindakan ini tidak dapat dibatalkan.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Batal</AlertDialogCancel>
-              <AlertDialogAction onClick={confirmDelete}>
-                Hapus
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <DeleteConfirmationDialog
+          isOpen={isDeleteDialogOpen}
+          onClose={() => setIsDeleteDialogOpen(false)}
+          onConfirm={confirmDelete}
+        />
       </main>
     </div>
   );
