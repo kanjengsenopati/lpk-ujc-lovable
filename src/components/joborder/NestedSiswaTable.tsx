@@ -8,6 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 import type { Siswa } from "../siswa/types";
 
 interface NestedSiswaTableProps {
@@ -18,7 +24,7 @@ interface NestedSiswaTableProps {
 
 export function NestedSiswaTable({ isOpen, onToggle, siswaData }: NestedSiswaTableProps) {
   return (
-    <>
+    <div>
       <Button
         variant="ghost"
         size="icon"
@@ -32,29 +38,33 @@ export function NestedSiswaTable({ isOpen, onToggle, siswaData }: NestedSiswaTab
         )}
       </Button>
       {isOpen && (
-        <div className="pl-8 pr-4 py-4 bg-muted/50">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID Siswa</TableHead>
-                <TableHead>Nama</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Phone</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {siswaData.map((siswa) => (
-                <TableRow key={siswa.id}>
-                  <TableCell>{siswa.idSiswa}</TableCell>
-                  <TableCell>{siswa.nama}</TableCell>
-                  <TableCell>{siswa.email}</TableCell>
-                  <TableCell>{siswa.phone}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="siswa-data">
+            <AccordionContent className="pl-8 pr-4 py-4 bg-muted/50">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID Siswa</TableHead>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Phone</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {siswaData.map((siswa) => (
+                    <TableRow key={siswa.id}>
+                      <TableCell>{siswa.idSiswa}</TableCell>
+                      <TableCell>{siswa.nama}</TableCell>
+                      <TableCell>{siswa.email}</TableCell>
+                      <TableCell>{siswa.phone}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       )}
-    </>
+    </div>
   );
 }
