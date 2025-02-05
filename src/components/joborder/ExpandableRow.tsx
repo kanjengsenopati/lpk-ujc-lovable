@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { TableCell, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
@@ -16,8 +17,8 @@ export function ExpandableRow({ jobOrder, onEdit, onDelete }: ExpandableRowProps
 
   return (
     <>
-      <TableRow>
-        <TableCell>
+      <TableRow className="hover:bg-muted/50">
+        <TableCell className="w-4">
           <NestedSiswaTable
             isOpen={isExpanded}
             onToggle={() => setIsExpanded(!isExpanded)}
@@ -48,6 +49,36 @@ export function ExpandableRow({ jobOrder, onEdit, onDelete }: ExpandableRowProps
           </div>
         </TableCell>
       </TableRow>
+      {isExpanded && (
+        <TableRow>
+          <TableCell colSpan={7} className="p-0">
+            <div className="py-4 px-8 bg-muted/50">
+              {jobOrder.relatedSiswa && jobOrder.relatedSiswa.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nama Siswa</TableHead>
+                      <TableHead>Asal LPK</TableHead>
+                      <TableHead>Tanggal Masuk</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {jobOrder.relatedSiswa.map((siswa) => (
+                      <TableRow key={siswa.id}>
+                        <TableCell>{siswa.nama}</TableCell>
+                        <TableCell>{siswa.asalLpk}</TableCell>
+                        <TableCell>{siswa.tanggalMasuk}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <div className="text-center py-4">Tidak ada data siswa</div>
+              )}
+            </div>
+          </TableCell>
+        </TableRow>
+      )}
     </>
   );
 }
