@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { TableCell, TableRow } from "../ui/table";
+import { TableCell, TableRow, Table, TableHeader, TableHead, TableBody } from "../ui/table";
 import { Button } from "../ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import { NestedSiswaTable } from "./NestedSiswaTable";
