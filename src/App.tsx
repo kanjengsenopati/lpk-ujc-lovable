@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -21,16 +22,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <SidebarProvider>
-          <div className="flex min-h-screen w-full">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/siswa" element={<Siswa />} />
-              <Route path="/rekrutmen" element={<Rekrutmen />} />
-              <Route path="/job-order" element={<JobOrder />} />
-              <Route path="/mitra" element={<Mitra />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/siswa" element={<Siswa />} />
+            <Route path="/rekrutmen" element={<Rekrutmen />} />
+            <Route path="/job-order" element={<JobOrder />} />
+            <Route path="/mitra" element={<Mitra />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>
