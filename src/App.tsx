@@ -12,6 +12,7 @@ import Siswa from "./pages/Siswa";
 import Rekrutmen from "./pages/Rekrutmen";
 import JobOrder from "./pages/JobOrder";
 import Mitra from "./pages/Mitra";
+import Lulusan from "./pages/Lulusan";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/rekrutmen" element={<Rekrutmen />} />
             <Route path="/job-order" element={<JobOrder />} />
             <Route path="/mitra" element={<Mitra />} />
+            <Route path="/lulusan" element={<Lulusan />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SidebarProvider>
