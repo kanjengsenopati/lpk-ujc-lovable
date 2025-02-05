@@ -1,10 +1,16 @@
 
 import { useState } from "react";
-import { TableCell, TableRow, Table, TableHeader, TableHead, TableBody } from "../ui/table";
+import { TableCell, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import { NestedSiswaTable } from "./NestedSiswaTable";
 import type { JobOrder } from "./types";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+} from "../ui/table";
 
 interface ExpandableRowProps {
   jobOrder: JobOrder;
@@ -60,6 +66,7 @@ export function ExpandableRow({ jobOrder, onEdit, onDelete }: ExpandableRowProps
                       <TableHead>Nama Siswa</TableHead>
                       <TableHead>Asal LPK</TableHead>
                       <TableHead>Tanggal Masuk</TableHead>
+                      <TableHead className="w-[100px]">Aksi</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -68,6 +75,20 @@ export function ExpandableRow({ jobOrder, onEdit, onDelete }: ExpandableRowProps
                         <TableCell>{siswa.nama}</TableCell>
                         <TableCell>{siswa.asalLpk}</TableCell>
                         <TableCell>{siswa.tanggalMasuk}</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              const nestedTable = document.querySelector(`[data-siswa-id="${siswa.id}"]`);
+                              if (nestedTable) {
+                                nestedTable.querySelector<HTMLButtonElement>('.view-details-btn')?.click();
+                              }
+                            }}
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
