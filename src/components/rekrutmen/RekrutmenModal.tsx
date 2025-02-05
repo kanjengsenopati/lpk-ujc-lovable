@@ -1,3 +1,4 @@
+```typescript
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -66,7 +67,7 @@ export function RekrutmenModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-2xl w-[80%]">
         <DialogHeader>
           <DialogTitle>
             {mode === "add" ? "Tambah Rekrutmen Baru" : "Edit Rekrutmen"}
@@ -219,3 +220,4 @@ export function RekrutmenModal({
     </Dialog>
   );
 }
+```

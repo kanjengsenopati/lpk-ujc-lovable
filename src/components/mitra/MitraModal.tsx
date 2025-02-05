@@ -1,3 +1,4 @@
+```typescript
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -60,7 +61,7 @@ export function MitraModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[400px] w-[80%]">
         <DialogHeader>
           <DialogTitle>
             {mode === "add" ? "Tambah Mitra LPK" : "Edit Mitra LPK"}
@@ -147,3 +148,4 @@ export function MitraModal({
     </Dialog>
   );
 }
+```

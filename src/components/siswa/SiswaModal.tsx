@@ -1,3 +1,4 @@
+```typescript
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -73,7 +74,7 @@ export function SiswaModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-3xl w-[80%]">
         <DialogHeader>
           <DialogTitle>
             {mode === "add" ? "Tambah Siswa Baru" : "Edit Data Siswa"}
@@ -233,3 +234,4 @@ export function SiswaModal({
     </Dialog>
   );
 }
+```

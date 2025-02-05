@@ -1,3 +1,4 @@
+```typescript
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -55,7 +56,7 @@ export function JobOrderModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-xl w-[80%]">
         <DialogHeader>
           <DialogTitle>
             {mode === "add" ? "Tambah Job Order Baru" : "Edit Job Order"}
@@ -181,3 +182,4 @@ export function JobOrderModal({
     </Dialog>
   );
 }
+```

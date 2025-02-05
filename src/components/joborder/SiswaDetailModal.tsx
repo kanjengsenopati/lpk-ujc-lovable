@@ -1,4 +1,4 @@
-
+```typescript
 import {
   Dialog,
   DialogContent,
@@ -26,7 +26,7 @@ export function SiswaDetailModal({ isOpen, onClose, siswa }: SiswaDetailModalPro
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl w-[80%] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Detail Siswa: {siswa.nama}</DialogTitle>
         </DialogHeader>
@@ -102,3 +102,4 @@ export function SiswaDetailModal({ isOpen, onClose, siswa }: SiswaDetailModalPro
     </Dialog>
   );
 }
+```
