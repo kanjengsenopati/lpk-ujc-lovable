@@ -1,4 +1,4 @@
-```typescript
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,7 +24,7 @@ interface SiswaModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: Partial<Siswa>) => void;
-  initialData?: Partial<Siswa>;
+  initialData?: Partial<Siswa> | null;
   mode: "add" | "edit";
 }
 
@@ -37,7 +37,6 @@ export function SiswaModal({
 }: SiswaModalProps) {
   const [formData, setFormData] = useState<Partial<Siswa>>(
     initialData || {
-      idSiswa: "",
       nik: "",
       nama: "",
       phone: "",
@@ -120,6 +119,14 @@ export function SiswaModal({
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="alamat">Alamat</Label>
+                <Input
+                  id="alamat"
+                  value={formData.alamat}
+                  onChange={(e) => handleChange("alamat", e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="jenisKelamin">Jenis Kelamin</Label>
                 <Select
                   value={formData.jenisKelamin}
@@ -136,6 +143,25 @@ export function SiswaModal({
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="tempatLahir">Tempat Lahir</Label>
+                <Input
+                  id="tempatLahir"
+                  value={formData.tempatLahir}
+                  onChange={(e) => handleChange("tempatLahir", e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="tanggalLahir">Tanggal Lahir</Label>
+                <Input
+                  id="tanggalLahir"
+                  type="date"
+                  value={formData.tanggalLahir}
+                  onChange={(e) => handleChange("tanggalLahir", e.target.value)}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="agama">Agama</Label>
@@ -154,53 +180,6 @@ export function SiswaModal({
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="golonganDarah">Golongan Darah</Label>
-                <Select
-                  value={formData.golonganDarah}
-                  onValueChange={(value) => handleChange("golonganDarah", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih Golongan Darah" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {golonganDarahOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="tinggiBadan">Tinggi Badan (cm)</Label>
-                <Input
-                  id="tinggiBadan"
-                  type="number"
-                  value={formData.tinggiBadan}
-                  onChange={(e) => handleChange("tinggiBadan", Number(e.target.value))}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="beratBadan">Berat Badan (kg)</Label>
-                <Input
-                  id="beratBadan"
-                  type="number"
-                  value={formData.beratBadan}
-                  onChange={(e) => handleChange("beratBadan", Number(e.target.value))}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="tanggalLahir">Tanggal Lahir</Label>
-                <Input
-                  id="tanggalLahir"
-                  type="date"
-                  value={formData.tanggalLahir}
-                  onChange={(e) => handleChange("tanggalLahir", e.target.value)}
-                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="asalLpk">Asal LPK</Label>
@@ -234,4 +213,3 @@ export function SiswaModal({
     </Dialog>
   );
 }
-```
