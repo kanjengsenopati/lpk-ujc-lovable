@@ -1,4 +1,4 @@
-```typescript
+
 import {
   Dialog,
   DialogContent,
@@ -102,4 +102,3 @@ export function SiswaDetailModal({ isOpen, onClose, siswa }: SiswaDetailModalPro
     </Dialog>
   );
 }
-```
