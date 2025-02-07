@@ -13,6 +13,8 @@ import Rekrutmen from "./pages/Rekrutmen";
 import JobOrder from "./pages/JobOrder";
 import Mitra from "./pages/Mitra";
 import Lulusan from "./pages/Lulusan";
+import LpkPartners from "./pages/LpkPartners";
+import KumiaiAgencies from "./pages/KumiaiAgencies";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ function App() {
               <Route path="/job-order" element={<JobOrder />} />
               <Route path="/mitra" element={<Mitra />} />
               <Route path="/lulusan" element={<Lulusan />} />
+              <Route path="/lpk-partners" element={<LpkPartners />} />
+              <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SidebarProvider>
