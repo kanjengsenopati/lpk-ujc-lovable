@@ -1,9 +1,8 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { DataTable } from "@/components/table/DataTable";
-import { columns } from "@/components/kumiai/columns";
-import { KumiaiAgencyModal } from "@/components/kumiai/KumiaiAgencyModal";
+import { KumiaiTable } from "@/components/kumiai/KumiaiTable";
+import { KumiaiModalManager } from "@/components/kumiai/KumiaiModalManager";
 import type { KumiaiAgency } from "@/components/kumiai/types";
 
 interface KumiaiContentProps {
@@ -32,12 +31,6 @@ export function KumiaiContent({ data, onUpdate }: KumiaiContentProps) {
       setModalMode("edit");
       setIsModalOpen(true);
     }
-  };
-
-  const handleAdd = () => {
-    setSelectedAgency(null);
-    setModalMode("add");
-    setIsModalOpen(true);
   };
 
   const handleSubmit = (formData: Partial<KumiaiAgency>) => {
@@ -69,14 +62,18 @@ export function KumiaiContent({ data, onUpdate }: KumiaiContentProps) {
 
   return (
     <>
-      <DataTable columns={columns({ handleEdit, handleDelete })} data={data} />
+      <KumiaiTable 
+        data={data}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
 
-      <KumiaiAgencyModal
+      <KumiaiModalManager
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={handleSubmit}
-        initialData={selectedAgency}
+        selectedAgency={selectedAgency}
         mode={modalMode}
+        onSubmit={handleSubmit}
       />
     </>
   );
