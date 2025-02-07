@@ -15,6 +15,7 @@ import Mitra from "./pages/Mitra";
 import Lulusan from "./pages/Lulusan";
 import LpkPartners from "./pages/LpkPartners";
 import KumiaiAgencies from "./pages/KumiaiAgencies";
+import Projects from "./pages/Projects";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/lulusan" element={<Lulusan />} />
               <Route path="/lpk-partners" element={<LpkPartners />} />
               <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SidebarProvider>

@@ -1,5 +1,6 @@
+
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { BarChart3, BookOpen, Building2, GraduationCap, Settings, Users, Briefcase } from "lucide-react";
+import { BarChart3, BookOpen, Building2, GraduationCap, Settings, Users, Briefcase, Kanban } from "lucide-react";
 
 const menuItems = [
   { 
@@ -37,6 +38,12 @@ const menuItems = [
     icon: GraduationCap, 
     url: "/lulusan",
     description: "Track graduate progress and placement"
+  },
+  {
+    title: "Projects",
+    icon: Kanban,
+    url: "/projects",
+    description: "Manage projects and tasks using Kanban board"
   },
   { 
     title: "Pengaturan", 
