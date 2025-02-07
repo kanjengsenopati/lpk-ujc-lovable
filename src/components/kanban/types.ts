@@ -7,6 +7,11 @@ export interface Task {
   priority: "low" | "medium" | "high";
   dueDate?: Date;
   assignee?: string;
+  relatedTo?: {
+    type: "rekrutmen" | "job-order" | "siswa";
+    id: string;
+    title: string;
+  };
 }
 
 export interface Column {

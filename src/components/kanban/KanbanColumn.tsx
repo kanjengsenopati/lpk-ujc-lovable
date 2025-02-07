@@ -7,9 +7,17 @@ interface KanbanColumnProps {
   column: Column;
   onAddTask: (columnId: string, task: Task) => void;
   onMoveTask: (taskId: string, fromColumn: string, toColumn: string) => void;
+  onEditTask: (taskId: string, columnId: string) => void;
+  onDeleteTask: (taskId: string, columnId: string) => void;
 }
 
-export function KanbanColumn({ column, onAddTask, onMoveTask }: KanbanColumnProps) {
+export function KanbanColumn({ 
+  column, 
+  onAddTask, 
+  onMoveTask,
+  onEditTask,
+  onDeleteTask 
+}: KanbanColumnProps) {
   return (
     <Card className="bg-muted/50">
       <CardHeader>
@@ -26,6 +34,8 @@ export function KanbanColumn({ column, onAddTask, onMoveTask }: KanbanColumnProp
             key={task.id}
             task={task}
             onMove={(columnId) => onMoveTask(task.id, column.id, columnId)}
+            onEdit={() => onEditTask(task.id, column.id)}
+            onDelete={() => onDeleteTask(task.id, column.id)}
           />
         ))}
       </CardContent>
