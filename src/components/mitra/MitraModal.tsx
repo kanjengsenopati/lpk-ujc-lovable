@@ -1,4 +1,4 @@
-```typescript
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -148,4 +148,3 @@ export function MitraModal({
     </Dialog>
   );
 }
-```
