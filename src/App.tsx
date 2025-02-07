@@ -14,32 +14,29 @@ import JobOrder from "./pages/JobOrder";
 import Mitra from "./pages/Mitra";
 import Lulusan from "./pages/Lulusan";
 
-// Create a client
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <SidebarProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/siswa" element={<Siswa />} />
-                <Route path="/rekrutmen" element={<Rekrutmen />} />
-                <Route path="/job-order" element={<JobOrder />} />
-                <Route path="/mitra" element={<Mitra />} />
-                <Route path="/lulusan" element={<Lulusan />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </SidebarProvider>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <SidebarProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/siswa" element={<Siswa />} />
+              <Route path="/rekrutmen" element={<Rekrutmen />} />
+              <Route path="/job-order" element={<JobOrder />} />
+              <Route path="/mitra" element={<Mitra />} />
+              <Route path="/lulusan" element={<Lulusan />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </SidebarProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 
