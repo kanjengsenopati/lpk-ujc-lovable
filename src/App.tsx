@@ -21,28 +21,30 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <SidebarProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/siswa" element={<Siswa />} />
-              <Route path="/rekrutmen" element={<Rekrutmen />} />
-              <Route path="/job-order" element={<JobOrder />} />
-              <Route path="/mitra" element={<Mitra />} />
-              <Route path="/lulusan" element={<Lulusan />} />
-              <Route path="/lpk-partners" element={<LpkPartners />} />
-              <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </SidebarProvider>
+          <TooltipProvider>
+            <SidebarProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/siswa" element={<Siswa />} />
+                <Route path="/rekrutmen" element={<Rekrutmen />} />
+                <Route path="/job-order" element={<JobOrder />} />
+                <Route path="/mitra" element={<Mitra />} />
+                <Route path="/lulusan" element={<Lulusan />} />
+                <Route path="/lpk-partners" element={<LpkPartners />} />
+                <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Toaster />
+              <Sonner />
+            </SidebarProvider>
+          </TooltipProvider>
         </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
 }
 
