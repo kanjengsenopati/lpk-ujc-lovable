@@ -43,6 +43,39 @@ export function NestedSiswaTable({ isOpen, onToggle, siswaData }: NestedSiswaTab
         )}
       </Button>
 
+      {isOpen && (
+        <div className="p-4">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nama</TableHead>
+                <TableHead>ID Siswa</TableHead>
+                <TableHead>Asal LPK</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {siswaData.map((siswa) => (
+                <TableRow key={siswa.id}>
+                  <TableCell>{siswa.nama}</TableCell>
+                  <TableCell>{siswa.idSiswa}</TableCell>
+                  <TableCell>{siswa.asalLpk}</TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleViewDetails(siswa)}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
+
       <SiswaDetailModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
