@@ -21,30 +21,28 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <TooltipProvider>
-            <SidebarProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/siswa" element={<Siswa />} />
-                <Route path="/rekrutmen" element={<Rekrutmen />} />
-                <Route path="/job-order" element={<JobOrder />} />
-                <Route path="/mitra" element={<Mitra />} />
-                <Route path="/lulusan" element={<Lulusan />} />
-                <Route path="/lpk-partners" element={<LpkPartners />} />
-                <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Toaster />
-              <Sonner />
-            </SidebarProvider>
-          </TooltipProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <TooltipProvider>
+          <SidebarProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/siswa" element={<Siswa />} />
+              <Route path="/rekrutmen" element={<Rekrutmen />} />
+              <Route path="/job-order" element={<JobOrder />} />
+              <Route path="/mitra" element={<Mitra />} />
+              <Route path="/lulusan" element={<Lulusan />} />
+              <Route path="/lpk-partners" element={<LpkPartners />} />
+              <Route path="/kumiai-agencies" element={<KumiaiAgencies />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Toaster />
+            <Sonner />
+          </SidebarProvider>
+        </TooltipProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
