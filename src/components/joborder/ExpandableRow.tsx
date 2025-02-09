@@ -57,8 +57,8 @@ export function ExpandableRow({ jobOrder, onEdit, onDelete }: ExpandableRowProps
       </TableRow>
       {isExpanded && (
         <TableRow>
-          <TableCell colSpan={7} className="p-0 border-0">
-            <div className="bg-muted/50">
+          <TableCell colSpan={7} className="p-0">
+            <div className="bg-muted/50 border-t border-border">
               {jobOrder.relatedSiswa && jobOrder.relatedSiswa.length > 0 ? (
                 <Table>
                   <TableHeader>
