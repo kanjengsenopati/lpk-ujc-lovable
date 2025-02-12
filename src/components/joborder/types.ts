@@ -1,14 +1,13 @@
+
 import type { Siswa } from "../siswa/types";
 
 export interface JobOrder {
   id: string;
+  nama: string;
   jobType: string;
   kumiaiAgency: string;
-  jmlPeserta: number;
-  tglRekrut: string;
-  tglCetak: string;
-  tglPelatihan: string;
-  tglWawancara: string;
+  catatan: string;
+  isActive: boolean;
   createdAt: string;
   relatedSiswa?: Siswa[];
 }
