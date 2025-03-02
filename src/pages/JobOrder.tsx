@@ -61,6 +61,7 @@ const sampleSiswa: Siswa[] = [
 const initialData: JobOrder[] = [
   {
     id: "1",
+    nama: "Job Order Tokyo #1",
     jobType: "Konstruksi",
     kumiaiAgency: "Tokyo Kyodo",
     jmlPeserta: 15,
@@ -69,10 +70,13 @@ const initialData: JobOrder[] = [
     tglPelatihan: "2024-05-01",
     tglWawancara: "2024-04-20",
     createdAt: "2024-03-01",
+    catatan: "Rekrutmen untuk proyek konstruksi di Tokyo",
+    isActive: true,
     relatedSiswa: [sampleSiswa[0]]
   },
   {
     id: "2",
+    nama: "Job Order Osaka #1",
     jobType: "Manufaktur",
     kumiaiAgency: "Osaka Kyodo",
     jmlPeserta: 10,
@@ -81,6 +85,8 @@ const initialData: JobOrder[] = [
     tglPelatihan: "2024-06-01",
     tglWawancara: "2024-05-20",
     createdAt: "2024-03-15",
+    catatan: "Rekrutmen untuk pabrik di Osaka",
+    isActive: true,
     relatedSiswa: [sampleSiswa[1]]
   }
 ];
