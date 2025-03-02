@@ -1,4 +1,3 @@
-
 import type { Siswa } from "../siswa/types";
 
 export interface JobOrder {
@@ -9,12 +8,17 @@ export interface JobOrder {
   catatan: string;
   isActive: boolean;
   createdAt: string;
+  jmlPeserta: number;
+  tglRekrut: string;
+  tglCetak?: string;
+  tglPelatihan?: string;
+  tglWawancara: string;
   relatedSiswa?: Siswa[];
 }
 
 export const jobTypes = [
   "Konstruksi",
-  "Manufaktur",
+  "Manufaktur", 
   "Perawat",
   "Pertanian",
   "Pengolahan Makanan",
