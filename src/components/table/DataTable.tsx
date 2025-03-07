@@ -43,10 +43,17 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const columnConfig = table.getAllColumns()
+    .filter(column => typeof column.accessorFn !== "undefined" && column.getCanHide())
+    .map(column => ({
+      key: column.id,
+      label: column.id.charAt(0).toUpperCase() + column.id.slice(1),
+    }));
+
   return (
     <div>
       <div className="flex items-center py-4">
-        <DataTableViewOptions table={table} />
+        <DataTableViewOptions columns={columnConfig} />
       </div>
       <div className="rounded-md border">
         <Table>
